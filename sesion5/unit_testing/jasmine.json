@@ -1,0 +1,11 @@
+{
+  "spec_files": [
+    "**/*test.?(m)js"
+  ],
+  "env": {
+    "failSpecWithNoExpectations": false,
+    "stopSpecOnExpectationFailure": false,
+    "stopOnSpecFailure": false,
+    "random": false
+  }
+}
