@@ -74,7 +74,7 @@ describe('userController', () => {
       const fn = () => userController.get(username);
 
       // Assert
-      expect(fn).toThrowError(NotFoundError, /user/);
+      expect(fn).toThrowError(NotFoundError, /doesNotExist404/);
     });
   });
 
@@ -85,7 +85,7 @@ describe('userController', () => {
       // Act
       const fn = () => userController.delete(username);
       // Assert
-      expect(fn).toThrowError(NotFoundError, /user/);
+      expect(fn).toThrowError(NotFoundError, /doesNotExist404/);
     });
   });
 });

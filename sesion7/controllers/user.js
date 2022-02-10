@@ -1,4 +1,5 @@
 const {getJSON, saveJSON} = require('../utils/fileHelpers');
+const {NotFoundError} = require('../utils/errors');
 
 const locationController = require('./location');
 
@@ -15,8 +16,8 @@ const userController = {
   get: function(identifier) {
     const data = getJSON();
     const foundUser = data.users.find(({username}) => username === identifier);
-    const user = foundUser || {};
-    return user;
+    if (foundUser) return foundUser;
+    throw new NotFoundError(`user with the username: ${identifier}`);
   },
   getUserLocations: function(username) {
     const data = getJSON();
@@ -52,7 +53,7 @@ const userController = {
       saveJSON(data);
       return user;
     }
-    return {};
+    throw new NotFoundError(`user with the username ${username}`);
   },
   addLocation: function(username, locationName) {
     const data = getJSON();

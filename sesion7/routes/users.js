@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
+const {handleError} = require('../utils/hof');
 const userController = require('../controllers/user')
 // path prefix /users
 
@@ -10,10 +11,10 @@ router.get('/', (req, res) => {
 });
 
 // GET users/:username
-router.get('/:username', (req, res) => {
+router.get('/:username', handleError((req, res) => {
   const {username} = req.params;
   res.send(userController.get(username));
-});
+}));
 
 // GET users/:username/locations
 router.get('/:username/locations', (req, res) => {
