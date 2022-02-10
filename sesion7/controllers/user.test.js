@@ -1,4 +1,5 @@
 const proxyquire = require('proxyquire');
+const {NotFoundError} = require('../utils/errors');
 
 const mockedData = {
   "users": [
@@ -49,6 +50,42 @@ describe('userController', () => {
 
       // Assert
       expect(index).toBe(expectedIndex);
+    });
+  });
+
+  describe('get', () => {
+    it('return the user when username exists', () => {
+      // Arrange
+      const username = 'username';
+      const expectedUser = mockedData.users[0];
+
+      // Act
+      const user = userController.get(username);
+
+      // Assert
+      expect(user).toEqual(expectedUser);
+    });
+
+    it('throw an error when the username does not exist', () => {
+      // Arrange
+      const username = 'doesNotExist404';
+
+      // Act
+      const fn = () => userController.get(username);
+
+      // Assert
+      expect(fn).toThrowError(NotFoundError, /user/);
+    });
+  });
+
+  describe('delete', () => {
+    it('throw an error when the username does not exist', () => {
+      // Arrange
+      const username = 'doesNotExist404';
+      // Act
+      const fn = () => userController.delete(username);
+      // Assert
+      expect(fn).toThrowError(NotFoundError, /user/);
     });
   });
 });

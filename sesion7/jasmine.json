@@ -1,7 +1,8 @@
 {
   "spec_files": [
     "**/*test.?(m)js",
-    "!node_modules/**/*"
+    "!node_modules/**/*",
+    "!tests/integration/**/*"
   ],
   "spec_dir": "",
   "env": {
