@@ -3,6 +3,7 @@ const router = express.Router();
 
 const {handleError} = require('../utils/hof');
 const userController = require('../controllers/user')
+const {createSchema, updateSchema} = require('../models/schemas/user');
 // path prefix /users
 
 // GET users
@@ -23,17 +24,21 @@ router.get('/:username/locations', (req, res) => {
 });
 
 // POST users/ body(name, lastName, username)
-router.post('/', (req, res) => {
+router.post('/', handleError((req, res, next) => {
   const {body: {name, lastName, username}} = req;
+  const {error} = createSchema.validate({name, lastName, username});
+  if(error) return next(error);
   res.send(userController.create(name, lastName, username));
-});
+}));
 
 // PUT users/:username body(name, lastName)
-router.put('/:username', (req, res) => {
+router.put('/:username', handleError((req, res, next) => {
   const {username} = req.params;
   const {body: {name, lastName}} = req;
+  const {error} = updateSchema.validate({name, lastName, username});
+  if(error) return next(error);
   res.send(userController.update(username, name, lastName));
-});
+}));
 
 // DELETE users/:username
 router.delete('/:username', (req, res) => {

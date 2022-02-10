@@ -18,6 +18,7 @@ app.use('/users', users);
 app.use('/locations', locations);
 
 app.use((err, req, res, next) => {
+  if (err.details) return res.status(400).send(err.details[0].message);
   if (err instanceof NotFoundError) {
     return res.status(404).send(err.message);
   }

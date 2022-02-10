@@ -43,7 +43,7 @@ const userController = {
       saveJSON(data);
       return data.users[index];
     }
-    return user;
+    throw new NotFoundError(`user with the username: ${username}`)
   },
   delete: function(username) {
     const data = getJSON();
