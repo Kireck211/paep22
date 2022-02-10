@@ -1,0 +1,27 @@
+{
+  "name": "tsp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "NODE_ENV=test jasmine --config=jasmine.json",
+    "test:coverage": "NODE_ENV=test istanbul cover --include-all-sources node_modules/jasmine/bin/jasmine.js -- --config=jasmine.json",
+    "test:integration": "NODE_ENV=test jasmine --config=integration.json",
+    "start": "NODE_ENV=dev nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15"
+  },
+  "devDependencies": {
+    "istanbul": "^1.0.0-alpha.2",
+    "jasmine": "^4.0.2",
+    "jasmine-reporters": "^2.5.0",
+    "jasmine-spec-reporter": "^7.0.0",
+    "proxyquire": "^2.1.3",
+    "supertest": "^6.2.2"
+  }
+}
