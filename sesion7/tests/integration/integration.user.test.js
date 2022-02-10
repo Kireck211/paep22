@@ -42,4 +42,39 @@ describe('/users', () => {
       expect(foundUser).toBe(true);
     });
   });
+  describe('PUT', () => {
+    it('200 OK with addLocation with a new location', async () => {
+      // Arrange
+      const newLocation = {
+        "longitude": "146.16275",
+        "latitude": "-9.68916",
+        "name": "ITESO"
+      };
+      const username = 'cecizi';
+
+      // Act
+      await request(app)
+        .post('/locations')
+        .send(newLocation)
+        .set('Accept', 'application/json');
+    
+      const {status: statusNewLocation, body: obtainedLocation } = await request(app)
+        .get(`/locations/${newLocation.name}`);
+      
+      expect(obtainedLocation).toEqual(newLocation);
+      expect(statusNewLocation).toBe(200);
+
+      await request(app)
+        .put(`/users/${username}/addLocation/${newLocation.name}`);
+      
+      const {status: statusAllLocations, body: allLocations} = await request(app)
+        .get(`/users/${username}/locations`);
+      
+      const isNewLocationAdded = allLocations.some(location => location.name === newLocation.name);
+        
+      // Assert
+      expect(isNewLocationAdded).toBe(true);
+      expect(statusAllLocations).toBe(200);
+    });
+  });
 });
