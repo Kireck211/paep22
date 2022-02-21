@@ -2,4 +2,81 @@ openapi: 3.0.0
 info:
   title: TSP API
   version: 0.0.1
-paths: {}
+paths:
+  /users:
+    get:
+      tags:
+      - TSP
+      summary: Get users
+      responses:
+      # este es un comentario
+        200:
+          description: Sorted users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    lastName:
+                      type: string
+                    username:
+                      type: string
+                    locations:
+                      type: array
+                      items:
+                        type: integer
+    post:
+      summary: Save a new user
+      tags:
+      - TSP
+      responses:
+        400:
+          description: Some field is wrong/missing
+          content:
+            application/json:
+              schema:
+                type: string
+        200:
+          description: Creation of a new user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  username:
+                    type: string
+                  locations:
+                    type: array
+                    items:
+                      type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        locations:
+          type: array
+          items:
+            type: integer
+    LocationItem:
+      type: integer
+

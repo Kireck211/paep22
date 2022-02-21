@@ -1,6 +1,9 @@
 const express = require('express');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 
 // const logger = require('./middlewares/logger');
+const swaggerSetup = YAML.load('./src/docs/swagger.yaml');
 const users = require('./routes/users');
 const locations = require('./routes/locations');
 const {NotFoundError} = require('./utils/errors');
@@ -8,6 +11,7 @@ const {NotFoundError} = require('./utils/errors');
 const app = express();
 
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 // app.use(logger());
 
 app.get('/', (req, res) => {
