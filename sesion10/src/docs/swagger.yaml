@@ -1,0 +1,98 @@
+openapi: 3.0.0
+info:
+  title: TSP API
+  version: 0.0.1
+paths:
+  /users:
+    get:
+      tags:
+      - TSP
+      summary: Get the users
+      responses:
+        200:
+          description: "OK"
+          content: 
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    lastName:
+                      type: string
+                    username:
+                      type: string
+                    locations:
+                      type: array
+                      items:
+                        type: integer
+    post:
+      tags:
+      - TSP
+      summary: Add a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                lastName:
+                  type: string
+                username:
+                  type: string
+                locations:
+                  type: array
+                  items:
+                    type: integer
+      responses:
+        200:
+          description: "OK"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  username:
+                    type: string
+                  locations:
+                    type: array
+                    items:
+                      type: integer
+  /users/{username}:
+    get:
+      tags:
+      - TSP
+      summary: Get a specific user
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Username
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  lastName:
+                    type: string
+                  username:
+                    type: string
+                  locations:
+                    type: array
+                    items:
+                      type: integer
