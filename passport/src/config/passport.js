@@ -18,6 +18,7 @@ passport.use(
         email: profile._json.email,
         imageUrl: profile._json.picture
       };
+      console.log('profile', profile);
       User.find(profile.id)
         .then(user => {
           return user
@@ -31,10 +32,12 @@ passport.use(
 );
 
 passport.serializeUser(function (user, done) {
+  console.log('serializing', user);
   done(null, user.id);
 });
 
 passport.deserializeUser(function (id, done) {
+  console.log('deserializing', id);
   User.find(id)
     .then(user => done(null, user))
     .catch(err => done(err));

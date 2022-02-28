@@ -14,6 +14,8 @@ router.get('/google/login', passport.authenticate('google', {
 
 // GET /google/callback
 router.get('/google/callback', passport.authenticate('google', {failureRedirect: '/auth/login'}) ,(req, res) => {
+  console.log('inside /auth/google/callback');
+  console.log(req.user)
   res.redirect('/');
 });
 
@@ -22,7 +24,7 @@ router.get('/verifyLogin', (req, res) => {
   if (req.user) {
     return res.status(200).send('Logged In');
   }
-  res.status(403).send('Not Authorized');
+  res.status(401).send('Not Authorized');
 });
 
 // GET /logout
