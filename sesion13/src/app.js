@@ -1,11 +1,8 @@
 const express = require('express');
-const swaggerUi = require('swagger-ui-express');
-const YAML = require('yamljs');
 const path = require('path');
 require('dotenv').config();
 
 // const logger = require('./middlewares/logger');
-const swaggerSetup = YAML.load('./src/docs/swagger.yaml');
 const usersRoute = require('./routes/users.route');
 const locationsRoute = require('./routes/locations.route');
 const {NotFoundError} = require('./utils/errors');
@@ -14,7 +11,6 @@ const app = express();
 
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSetup));
 
 app.get('/', (req, res) => {
   res.send('Hello World!!!');
