@@ -63,6 +63,23 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/200UserLocations'
+  /users/:username/addLocation/:name:
+    put:
+      tags:
+      - TSP
+      parameters:
+      - name: username
+        in: path
+        required: true
+      - name: name
+        in: path
+        required: true
+      - name: filterBy
+        in: query
+      summary: Adds a location to a specific user
+      responses:
+        200:
+          $ref: '#/components/responses/200User'
 components:
   schemas:
     User:

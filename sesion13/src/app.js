@@ -1,5 +1,7 @@
 const express = require('express');
 const path = require('path');
+const swaggerUi = require('swagger-ui-express');
+const YAML = require('yamljs');
 require('dotenv').config();
 
 // const logger = require('./middlewares/logger');
@@ -8,9 +10,11 @@ const locationsRoute = require('./routes/locations.route');
 const {NotFoundError} = require('./utils/errors');
 
 const app = express();
+const swaggerDocument = YAML.load('src/docs/swagger.yaml');
 
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
+app.use('/TSP-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument))
 
 app.get('/', (req, res) => {
   res.send('Hello World!!!');
