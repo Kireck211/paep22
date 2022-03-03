@@ -4,7 +4,13 @@ class QuotesController {
   getTechnologyQuote() {
     return axios
       .get('https://api.quotable.io/random?tags=technology')
-      .then(({data: {content, author}}) => ({content, author}));
+      .then(response => {
+        return {
+          content: response.data.content,
+          author: response.data.author
+        }
+      });
+      // .then(({data: {content, author}}) => ({content, author}));
   }
 };
 

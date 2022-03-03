@@ -5,7 +5,15 @@ const {handleError} = require('../utils/hof');
 const userController = require('../controllers/user.controller')
 const quotesController = require('../controllers/quotes.controller');
 const {createSchema, updateSchema} = require('../models/schemas/user.schema');
+const {uploadLocal} = require('../utils/multer');
 // path prefix /users
+
+router.post('/profilePictureLocal', uploadLocal.single('profilePicture'), (req, res) => {
+  console.log(req.file);
+  const path = req.file.path.replace('src/', '');
+  userController.saveProfilePicture(`http://localhost:3000/${path}`);
+  res.redirect('/public/html/profile.html');
+});
 
 router.get('/', handleError(async (req, res) => {
   const quote = await quotesController.getTechnologyQuote();
