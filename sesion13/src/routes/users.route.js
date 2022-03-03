@@ -5,7 +5,6 @@ const {handleError} = require('../utils/hof');
 const userController = require('../controllers/user.controller')
 const quotesController = require('../controllers/quotes.controller');
 const {createSchema, updateSchema} = require('../models/schemas/user.schema');
-const {uploadGCS, uploadLocal} = require('../utils/multer');
 // path prefix /users
 
 router.get('/', handleError(async (req, res) => {
@@ -15,19 +14,6 @@ router.get('/', handleError(async (req, res) => {
 
 router.get('/getProfilePicture', (req, res) => {
   res.send({url: userController.getProfilePicture()});
-});
-
-router.post('/profilePicture', uploadGCS.single('profilePicture'), (req, res) => {
-  console.log(req.file);
-  userController.saveProfilePicture(req.file.path);
-  res.redirect('/public/html/profile.html');
-});
-
-router.post('/profilePictureLocal', uploadLocal.single('profilePicture'), (req, res) => {
-  console.log(req.file);
-  const path = req.file.path.replace('src/', '');
-  userController.saveProfilePicture(`http://localhost:3000/${path}`);
-  res.redirect('/public/html/profile.html');
 });
 
 router.get('/:username', handleError((req, res) => {
