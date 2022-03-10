@@ -5,6 +5,8 @@ const YAML = require('yamljs');
 require('dotenv').config();
 
 const {NotFoundError} = require('./utils/errors');
+const {upload, uploadCloud} = require('./utils/multer');
+const {saveJSON, getJSON} = require('./utils/fileHelpers');
 
 const app = express();
 const swaggerDocument = YAML.load('src/docs/swagger.yaml');
@@ -21,15 +23,30 @@ app.get('/uploader', (req, res) => {
   res.redirect('/public/html/uploader.html');
 });
 
-// 4. app.post for /profilePicture with multer middleware from utils/multer.js
-// 5. Inside the (req, res) callback function save the file path to
-//    a local file src/data/data.json
+app.post('/profilePicture', upload.single('profilePicture'), (req, res) => {
+  const path = req.file.path.replace('src/', '');
+  const data = getJSON();
+  data.profilePicture = `http://localhost:3000/${path}`;
+  console.log(data.profilePicture);
+  saveJSON(data);
+  res.redirect('/public/html/profile.html');
+});
+
+app.post('/profilePictureCloud', uploadCloud.single('profilePicture'), (req, res) => {
+  console.log(req.file);
+  const data = getJSON();
+  data.profilePicture = req.file.path;
+  saveJSON(data);
+  res.redirect('/public/html/profile.html');
+});
 
 app.get('/profile', (req, res) => {
   res.redirect('/public/html/profile.html');
 });
 
 app.get('/getProfilePicture', (req, res) => {
+  const data = getJSON();
+  res.send({url: data.profilePicture});
   // 6. finish the implementation to obtain the saved profilePicture,
   //    you can use fileHelpers
 });
