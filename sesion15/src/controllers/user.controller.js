@@ -1,5 +1,6 @@
 const {getJSON, saveJSON} = require('../utils/fileHelpers');
 const {NotFoundError} = require('../utils/errors');
+const User = require('../models/schemas/User');
 
 const locationController = require('./location.controller');
 
@@ -22,11 +23,9 @@ const userController = {
     const index = data.users.findIndex(({username}) => username === identifier);
     return index;
   },
-  get: function(identifier) {
-    const data = getJSON();
-    const foundUser = data.users.find(({username}) => username === identifier);
-    if (foundUser) return foundUser;
-    throw new NotFoundError(`user with the username: ${identifier}`);
+  get: async function(identifier) {
+    const user = await User.findById(identifier);
+    return user;
   },
   getUserLocations: function(username) {
     const data = getJSON();

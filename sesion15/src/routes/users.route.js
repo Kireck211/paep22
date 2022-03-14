@@ -4,7 +4,7 @@ const router = express.Router();
 const {handleError} = require('../utils/hof');
 const userController = require('../controllers/user.controller')
 const quotesController = require('../controllers/quotes.controller');
-const {createSchema, updateSchema} = require('../models/schemas/user.schema');
+// const {createSchema, updateSchema} = require('../models/schemas/user.schema');
 const {uploadLocal} = require('../utils/multer');
 // path prefix /users
 
@@ -24,9 +24,10 @@ router.get('/getProfilePicture', (req, res) => {
   res.send({url: userController.getProfilePicture()});
 });
 
-router.get('/:username', handleError((req, res) => {
+router.get('/:username', handleError(async (req, res) => {
   const {username} = req.params;
-  res.send(userController.get(username));
+  const user = await userController.get(username);
+  res.send(user);
 }));
 
 // GET users/:username/locations
@@ -38,8 +39,8 @@ router.get('/:username/locations', handleError((req, res) => {
 // POST users/ body(name, lastName, username)
 router.post('/', handleError((req, res, next) => {
   const {body: {name, lastName, username}} = req;
-  const {error} = createSchema.validate({name, lastName, username});
-  if(error) return next(error);
+  // const {error} = createSchema.validate({name, lastName, username});
+  // if(error) return next(error);
   res.send(userController.create(name, lastName, username));
 }));
 
@@ -47,8 +48,8 @@ router.post('/', handleError((req, res, next) => {
 router.put('/:username', handleError((req, res, next) => {
   const {username} = req.params;
   const {body: {name, lastName}} = req;
-  const {error} = updateSchema.validate({name, lastName, username});
-  if(error) return next(error);
+  // const {error} = updateSchema.validate({name, lastName, username});
+  // if(error) return next(error);
   res.send(userController.update(username, name, lastName));
 }));
 

@@ -11,6 +11,8 @@ const {NotFoundError} = require('./utils/errors');
 
 const app = express();
 const swaggerDocument = YAML.load('src/docs/swagger.yaml');
+require('./config/db');
+const User = require('./models/schemas/User');
 
 app.use(express.json());
 app.use('/public', express.static(path.join(__dirname, 'public')));
