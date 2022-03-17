@@ -31,14 +31,14 @@ const userController = {
     // TODO 3
     // get the User with their locations
     // tip: you can use populate
-    return await User.findOne({username}).populate('locations');
+    return null
   },
   create: async function(name, lastName, username, email) {
     // TODO 4
     // Save the user
     // return the saved user
     // return null;
-    return User.create({name, lastName, username, email});
+    return null;
   },
   update: async function(username, propertiesToUpdate) {
     // TODO 5
