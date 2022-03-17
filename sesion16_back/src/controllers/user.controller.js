@@ -20,9 +20,8 @@ const userController = {
     // get all the Users from the database
     return null;
   },
-  getById: async function(identifier) {
-    const user = await User.findById(identifier);
-    return user;
+  getById: function(identifier) {
+    return User.findById(identifier);
   },
   get: function(username) {
     return User.findOne({username});
