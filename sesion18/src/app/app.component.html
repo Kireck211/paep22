@@ -1,0 +1,16 @@
+<app-warning-alert [content]="'Hello this is a content propery'"></app-warning-alert>
+<app-warning-alert [content]="title"></app-warning-alert>
+<app-warning-alert (clicked)="onClickedAlert()"></app-warning-alert>
+
+<br>
+<br>
+<br>
+<app-warning-alert [type]="'danger'" [content]="'Clicked '+counter +' times'"></app-warning-alert>
+
+<button (click)="resetCounter()">Reset counter</button>
+
+<ng-template [ngIf]="isAlertEnabled">
+  <app-warning-alert [content]="'Using ngIf'"></app-warning-alert>
+</ng-template>
+
+<!-- <app-warning-alert *ngIf="isAlertEnabled" [content]="'Using ngIf'"></app-warning-alert> -->
