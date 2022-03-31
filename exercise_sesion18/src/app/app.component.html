@@ -1,0 +1,28 @@
+<!-- app.compoonent.html file -->
+<app-alert [type]="'primary'" [content]="'I am a primary alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'secondary'" [content]="'I am a secondary alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'success'" [content]="'I am a success alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'danger'" [content]="'I am a danger alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'warning'" [content]="'I am a warning alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'info'" [content]="'I am a info alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'light'" [content]="'I am a light alert'" (clicked)="onAlertClicked($event)"></app-alert>
+<app-alert [type]="'dark'" [content]="'I am a dark alert'" (clicked)="onAlertClicked($event)"></app-alert>
+
+<br>
+<br>
+<br>
+
+<!-- <app-alert *ngFor="let counter of alertCounter | keyvalue" [type]="counter.key"
+  [content]="counter.key + ': ' + counter.value">
+</app-alert> -->
+
+<app-alert [type]="'primary'" [content]="'primary: ' + alertCounter.primary"></app-alert>
+<app-alert [type]="'secondary'" [content]="'secondary: ' + alertCounter.secondary"></app-alert>
+<app-alert [type]="'success'" [content]="'success: ' + alertCounter.success"></app-alert>
+<app-alert [type]="'danger'" [content]="'danger: ' + alertCounter.danger"></app-alert>
+<app-alert [type]="'warning'" [content]="'warning: ' + alertCounter.warning"></app-alert>
+<app-alert [type]="'info'" [content]="'info: ' + alertCounter.info"></app-alert>
+<app-alert [type]="'light'" [content]="'light: ' + alertCounter.light"></app-alert>
+<app-alert [type]="'dark'" [content]="'dark: ' + alertCounter.dark"></app-alert>
+
+<router-outlet></router-outlet>
