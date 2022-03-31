@@ -1,0 +1,33 @@
+<h1 appFavorite *ngIf="title else elseGoodbye" style="font-family: Helvetica, serif">Hello World {{students[0].name}}
+</h1>
+
+<ng-template #elseGoodbye>
+  <h1>Goodbye world</h1>
+</ng-template>
+
+<ng-container *ngIf="title">
+  <p *ngFor="let student of students; let i = index">{{ student.name }} is the index {{ i }}</p>
+</ng-container>
+
+<input (input)="onChange($event)">
+
+<div [ngSwitch]="type">
+  <p *ngSwitchCase="'primary'">This is a primary alert</p>
+  <p *ngSwitchCase="'secondary'">This is a secondary alert</p>
+  <p *ngSwitchCase="'danger'">This is a danger alert</p>
+  <p *ngSwitchCase="'info'">This is a infor alert</p>
+  <p *ngSwitchDefault>This is a default altert</p>
+</div>
+
+<p *ngFor="let student of students; let i = index" [ngClass]="{'first': true, 'super-rounded': student.name==='Vania'}"
+  [ngStyle]="{'border-radius':student.name === 'Vania'?'10px':'4px'}">
+  {{ student.name }}
+  is the index
+  {{ i }}</p>
+
+
+<h2 appFavorite="blue" defaultSize="4em">Hola</h2>
+
+
+<app-warning-alert appFavorite></app-warning-alert>
+<app-success-alert appFavorite></app-success-alert>
