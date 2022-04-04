@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { FavoriteDirective } from './favorite.directive';
 import { WarningAlertComponent } from './warning-alert/warning-alert.component';
 import { SuccessAlertComponent } from './success-alert/success-alert.component';
+import { CountdownPipe } from './countdown.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
     FavoriteDirective,
     WarningAlertComponent,
-    SuccessAlertComponent
+    SuccessAlertComponent,
+    CountdownPipe
   ],
   imports: [
     BrowserModule,

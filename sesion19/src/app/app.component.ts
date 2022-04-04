@@ -24,9 +24,9 @@ export class AppComponent {
       name: 'Narda'
     }
   ]
-  type: string = 'primary';
+  date: Date = new Date(1649767577769);
 
   onChange(event: Event) {
-    this.type = (<HTMLInputElement>event.target).value;
+    this.date = new Date((<HTMLInputElement>event.target).value);
   }
 }

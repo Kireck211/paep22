@@ -9,15 +9,19 @@
   <p *ngFor="let student of students; let i = index">{{ student.name }} is the index {{ i }}</p>
 </ng-container>
 
-<input (input)="onChange($event)" appFavorite type="date">
+<input (input)="onChange($event)" type="date">
 
-<div [ngSwitch]="type">
+<h1>
+  {{ date | countdown | number }}
+</h1>
+
+<!-- <div [ngSwitch]="type">
   <p *ngSwitchCase="'primary'">This is a primary alert</p>
   <p *ngSwitchCase="'secondary'">This is a secondary alert</p>
   <p *ngSwitchCase="'danger'">This is a danger alert</p>
   <p *ngSwitchCase="'info'">This is a infor alert</p>
   <p *ngSwitchDefault>This is a default altert</p>
-</div>
+</div> -->
 
 <p *ngFor="let student of students; let i = index" [ngClass]="{'first': true, 'super-rounded': student.name==='Vania'}"
   [ngStyle]="{'border-radius':student.name === 'Vania'?'10px':'4px'}">
