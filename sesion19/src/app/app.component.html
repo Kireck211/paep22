@@ -9,7 +9,7 @@
   <p *ngFor="let student of students; let i = index">{{ student.name }} is the index {{ i }}</p>
 </ng-container>
 
-<input (input)="onChange($event)">
+<input (input)="onChange($event)" appFavorite type="date">
 
 <div [ngSwitch]="type">
   <p *ngSwitchCase="'primary'">This is a primary alert</p>
