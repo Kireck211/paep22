@@ -1,0 +1,4 @@
+<div class="container">
+  <h1>Famous quotes <span class="subtitle" (click)="onRefreshAll()"> ● Refresh All</span></h1>
+  <app-quote *ngFor="let quote of quotes" [content]="quote.content" [author]="quote.author"></app-quote>
+</div>
