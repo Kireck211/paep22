@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span>Routing basics</span>
+  <button mat-flat-button color="primary"><a routerLink="/home">Home</a></button>
+  <button mat-flat-button color="primary" routerLink="/first">First</button>
+  <button mat-flat-button color="primary" routerLink="/login">Login</button>
+  <button mat-flat-button color="primary" routerLink="/notfouadfasdflakjsdflasdjfk">Not implemented yet</button>
+  <button mat-flat-button color="primary" routerLink="/admin" *ngIf="authService.isAdmin">Admin</button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
