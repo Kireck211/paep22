@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, map, Subject, switchMap } from 'rxjs';
+import { forkJoin, map, of, startWith, Subject, switchMap } from 'rxjs';
 import { QuoteService, Quote } from './quote.service';
 
 @Component({
@@ -10,23 +10,36 @@ import { QuoteService, Quote } from './quote.service';
 export class AppComponent implements OnInit {
   quotes: Quote[] = []
   refreshAll$ = new Subject();
+  refreshOne$ = new Subject();
 
   constructor(readonly quoteService: QuoteService) { }
 
   ngOnInit(): void {
     this.refreshAll$.pipe(
+      startWith(''),
       switchMap(() => {
-        return forkJoin([this.quoteService.getQuote(), this.quoteService.getQuote(), this.quoteService.getQuote()])
+        return forkJoin([this.quoteService.getQuote(), this.quoteService.getQuote(), this.quoteService.getQuote(), this.quoteService.getQuote(), this.quoteService.getQuote(), this.quoteService.getQuote()])
       })
     ).subscribe({
       next: (quotes: Quote[]) => {
         this.quotes = quotes;
       }
-    })
+    });
+
+    this.refreshOne$.pipe(
+      switchMap((index) => {
+        return forkJoin([this.quoteService.getQuote(), of(index)]);
+      })
+    ).subscribe({
+      next: (event) => {
+        const [quote, index] = event;
+        this.quotes[index as number] = quote;
+      }
+    });
   }
 
-  onRefresh() {
-    console.log('clicked');
+  onRefresh(index: number) {
+    this.refreshOne$.next(index);
   }
 
   onRefreshAll() {
