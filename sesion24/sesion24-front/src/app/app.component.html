@@ -1,0 +1,59 @@
+<mat-card>
+  <mat-form-field appearance="fill">
+    <mat-label>Search a location</mat-label>
+    <input matInput [value]="locationToSearch" (input)="onChangeLocationToSearch($event)">
+  </mat-form-field>
+  <pre *ngIf="locationObtained">{{locationObtained}}</pre>
+  <button mat-raised-button color="primary" [disabled]="locationToSearch.length === 0" (click)="onGetLocation()">Get
+    Location</button>
+  <button mat-raised-button color="warn" (click)="locationObtained = ''">Clear</button>
+</mat-card>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Create, Update and Delete a Location
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <button mat-raised-button [disabled]="!form.valid" (click)="createLocation()">Create</button>
+      <button mat-raised-button color="primary" [disabled]="!form.valid" (click)="updateLocation()">Update</button>
+      <button mat-raised-button color="accent" [disabled]="!form.valid" (click)="deleteLocation()">Delete</button>
+      <button mat-raised-button color="warn" (click)="clearForm()">Clear</button>
+      <form [formGroup]="form">
+        <mat-form-field appearance="fill">
+          <mat-label>Location Name</mat-label>
+          <input matInput formControlName="name">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Latitude</mat-label>
+          <input matInput formControlName="latitude" type="number">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>Longitude</mat-label>
+          <input matInput formControlName="longitude" type="number">
+        </mat-form-field>
+      </form>
+      <pre *ngIf="locationCUD">{{locationCUD}}</pre>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+
+<mat-card>
+  <button mat-raised-button [disabled]="image === undefined" (click)="uploadImage()">Upload Image</button>
+  <input type="file" (input)="selectFile($event)">
+</mat-card>
+
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Uploaded Image
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <img *ngIf="imageSource !== undefined" [src]="imageSource" />
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
