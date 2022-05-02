@@ -1,0 +1,27 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+
+  h2 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .me {
+    background-color: #5BD762;
+    text-align: right;
+  }
+
+  .private {
+    margin-top: 20px;
+
+    :disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  mat-card {
+    margin-bottom: 20px;
+  }
+}
