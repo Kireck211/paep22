@@ -1,7 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { AuthService } from './auth.service';
-import { SocketService } from './socket.service';
-
+import { Component } from '@angular/core';
 interface Message {
   message: string;
   from: "outside" | "me"
@@ -12,9 +9,9 @@ interface Message {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
 
-  constructor(private socketService: SocketService, public authService: AuthService) { }
+  constructor() { }
 
   publicMessages: Message[] = [];
   publicMessage: string = '';
@@ -24,9 +21,6 @@ export class AppComponent implements OnInit {
   room: string = '';
 
   onSendPublic() {
-    this.socketService.sendGeneralMessage(this.publicMessage);
-    this.publicMessages.push({ message: this.publicMessage, from: 'me' })
-    this.publicMessage = '';
   }
 
   onChangePublic(event: Event) {
@@ -35,10 +29,6 @@ export class AppComponent implements OnInit {
   }
 
   onSendPrivate() {
-    this.socketService.sendPrivateMessage(this.privateMessage);
-    this.privateMessages.push({ message: this.privateMessage, from: 'me' })
-    this.privateMessage = '';
-
   }
 
   onChangePrivate(event: Event) {
@@ -57,26 +47,8 @@ export class AppComponent implements OnInit {
   }
 
   login() {
-    this.socketService.login(this.name, this.room);
-    this.authService.setIsLoggedIn(true);
   }
 
   logout() {
-    this.authService.setIsLoggedIn(false);
-    this.name = '';
-    this.room = '';
-  }
-
-  ngOnInit(): void {
-    this.socketService.getGeneralMessage().subscribe({
-      next: (message) => {
-        this.publicMessages.push({ message, from: 'outside' });
-      }
-    })
-    this.socketService.getPrivateMessage().subscribe({
-      next: (message) => {
-        this.privateMessages.push({ message, from: 'outside' });
-      }
-    })
   }
 }

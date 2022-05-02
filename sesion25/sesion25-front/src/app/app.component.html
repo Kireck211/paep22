@@ -11,7 +11,7 @@
 </mat-card>
 
 <mat-card class="container">
-  <mat-accordion *ngIf="!authService.getIsLoggedIn()">
+  <mat-accordion *ngIf="true">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         Login
@@ -34,18 +34,15 @@
 
 
 
-  <h2 *ngIf="authService.getIsLoggedIn()">Room: {{ room }}, User: {{ name }} <button mat-raised-button color="accent"
-      (click)="logout()">Log out</button></h2>
+  <h2 *ngIf="true">Room: {{ room }}, User: {{ name }} <button mat-raised-button color="accent" (click)="logout()">Log
+      out</button></h2>
 
-  <mat-form-field appearance="fill" class="private"
-    [ngStyle]="{cursor: authService.getIsLoggedIn() ? 'pointer': 'not-allowed'}">
+  <mat-form-field appearance="fill" class="private">
     <mat-label>Private Message</mat-label>
-    <textarea matInput [value]="privateMessage" (input)="onChangePrivate($event)"
-      [disabled]="!authService.getIsLoggedIn()"></textarea>
+    <textarea matInput [value]="privateMessage" (input)="onChangePrivate($event)"></textarea>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" (click)="onSendPrivate()" [disabled]="!authService.getIsLoggedIn()"
-    [ngStyle]="{cursor: authService.getIsLoggedIn() ? 'pointer': 'not-allowed'}">Send
+  <button mat-raised-button color="primary" (click)="onSendPrivate()">Send
     private message</button>
 
   <h2>Private Messages</h2>
