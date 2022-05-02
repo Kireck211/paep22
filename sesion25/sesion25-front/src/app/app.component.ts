@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { SocketService } from './socket.service';
 interface Message {
   message: string;
   from: "outside" | "me"
@@ -9,9 +10,10 @@ interface Message {
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.less']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
+  isLogged = false;
 
-  constructor() { }
+  constructor(private readonly socketService: SocketService) { }
 
   publicMessages: Message[] = [];
   publicMessage: string = '';
@@ -21,6 +23,9 @@ export class AppComponent {
   room: string = '';
 
   onSendPublic() {
+    this.socketService.sendPublicMessage(this.publicMessage);
+    this.publicMessages.push({ message: this.publicMessage, from: 'me' });
+    this.publicMessage = '';
   }
 
   onChangePublic(event: Event) {
@@ -29,6 +34,9 @@ export class AppComponent {
   }
 
   onSendPrivate() {
+    this.socketService.sendPrivateMessage(this.privateMessage);
+    this.privateMessages.push({ message: this.privateMessage, from: 'me' });
+    this.privateMessage = '';
   }
 
   onChangePrivate(event: Event) {
@@ -47,8 +55,27 @@ export class AppComponent {
   }
 
   login() {
+    this.socketService.login(this.name, this.room);
+    this.isLogged = true;
   }
 
   logout() {
+  }
+
+  ngOnInit(): void {
+    this.socketService.getPublicMessage().subscribe({
+      next: (message) => {
+        this.publicMessages.push({ message, from: 'outside' });
+      }
+    });
+    this.socketService.getPrivateMessage().subscribe({
+      next: (message) => {
+        this.privateMessages.push({ message, from: 'outside' });
+      }
+    })
+  }
+
+  ngOnDestroy(): void {
+
   }
 }

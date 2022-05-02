@@ -11,7 +11,7 @@
 </mat-card>
 
 <mat-card class="container">
-  <mat-accordion *ngIf="true">
+  <mat-accordion *ngIf="!isLogged">
     <mat-expansion-panel>
       <mat-expansion-panel-header>
         Login
@@ -34,8 +34,9 @@
 
 
 
-  <h2 *ngIf="true">Room: {{ room }}, User: {{ name }} <button mat-raised-button color="accent" (click)="logout()">Log
-      out</button></h2>
+  <h2 *ngIf="true">Room: {{ room }}, User: {{ name }} </h2>
+  <!-- <button mat-raised-button color="accent" (click)="logout()">Log
+    out</button> -->
 
   <mat-form-field appearance="fill" class="private">
     <mat-label>Private Message</mat-label>
